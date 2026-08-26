@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+
+    {% set via_quote = price is defined %}
+
+    <div class="d-flex">
+        <div>
+            <div>
+                <form action="/buy" method="post" id="buyingForm">
+                    <div class="form-floating mb-3" style="width: 500px;">
+                        <input  type="text" {% if not via_quote %}autofocus{% endif %} value="{{ symbol | d('')}}" class="form-control" id="floatingStockSymbol" placeholder="Stock Symbol" name="symbol">
+                        <label for="floatingStockSymbol">Stock Symbol</label>
+                    </div>
+
+                    <div class="form-floating mb-3" style="width: 500px;">
+                        <input type="number" name="shares" value="{{ amount | d('')}}" class="form-control" id="floatingAmount" placeholder="Amount" min="1">
+                        <label for="floatingAmount">Amount</label>
+                    </div>
+
+                    <div class="col-auto" style="margin-top: 150px;">
+                        <button class="btn btn-primary btn-lg" type="submit" style="width: 300px;">Buy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="d-flex mx-auto rounded" style="width: 50%;">
+            <div class="bg-primary text-white p-2 flex-fill rounded-start d-flex align-items-center justify-content-center" style="margin: auto auto auto 150px; height: 25%;">
+                <button  class="btn btn-primary btn-lg" type="button" onclick="updatePrice()">Price</button>
+            </div>
+            <div class="bg-white border p-2 flex-fill rounded-end d-flex align-items-center justify-content-center" style="margin: auto 150px auto auto; height: 25%;">{{price | d('', true)}}</div>
+        </div>
+    </div>
+
+    <script>
+        function updatePrice() {
+            const form = document.getElementById("buyingForm");
+            form.action = '/buy_quote';
+            form.submit();
+            form.action = '/buy';
+        }
+    </script>
+{% endblock %}

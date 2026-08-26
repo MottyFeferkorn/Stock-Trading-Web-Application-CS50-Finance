@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+
+    <table class="table table-bordered" style="margin-top: 50px; table-layout: fixed; width: 100%;">
+        <thead>
+            <tr class="table-primary">
+                <th scope="col">Symbol</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Price</th>
+                <th scope="col">Transacted</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in transactions %}
+                <tr>
+                    <td>{{ row['stock_symbol']}}</td>
+                    <td>{{ row['amount'] }}</td>
+                    <td>{{ row['price']  | usd}}</td>
+                    <td>{{ row['time_stamp']}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

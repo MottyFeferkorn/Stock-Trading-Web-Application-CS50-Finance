@@ -1,0 +1,42 @@
+
+{% set via_quote = stock_info is defined %}
+    <!--<div class="d-flex" style="margin-top: 35px;">
+        <div style="width: 50%;">
+            <form style="margin-left: 100px;" class="row g-3 text-center" action="/buy_quote" method="post">
+                <div class="col-auto">
+
+                    <input autocomplete="off" {% if not via_quote %}autofocus{% endif %} required class="form-control mx-auto w-auto" name="symbol" placeholder="Stock Symbol" value="{{ previous_input | d('') }}" type="text">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary mb-3" type="submit">Lookup Price</button>
+                </div>
+            </form>
+        </div>
+
+    {% if via_quote %}
+        <div class="d-flex mx-auto rounded" style="width: 50%;">
+                <div class="bg-primary text-white p-2 flex-fill rounded-start" style="margin-left: 150px; height: 75%;">Current Price</div>
+                <div class="bg-white border p-2 flex-fill rounded-end" style="margin-right: 150px; height: 75%;">{{ stock_info["price"] | usd}}</div>
+            </div>
+        </div>
+    {% endif %}
+
+    <hr style="margin-top: 35px;">
+    <!-- {% if via_quote %}
+        <table class="table table-bordered" style="margin-top: 50px; table-layout: fixed; width: 100%;">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Symbol</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ stock_info["name"] }}</td>
+                    <td>{{ stock_info["price"] | usd}}</td>
+                    <td>{{ stock_info["symbol"] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %} -->

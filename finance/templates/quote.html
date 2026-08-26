@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block main %}
+
+    {% set via_post = stock_info is defined %}
+
+    <form style="margin-left: 100px;" class="row g-3 text-center" action="/quote" method="post">
+        <div class="col-auto">
+            <input autocomplete="off" {% if not via_post %}autofocus{% endif %} required class="form-control mx-auto w-auto" name="symbol" placeholder="Stock Symbol" value="{{ previous_input | d('') }}" type="text">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary mb-3" type="submit">Lookup</button>
+        </div>
+    </form>
+
+    {% if via_post %}
+        <table class="table table-bordered" style="margin-top: 50px; table-layout: fixed; width: 100%;">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Symbol</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ stock_info["name"] }}</td>
+                    <td>{{ stock_info["price"] | usd}}</td>
+                    <td>{{ stock_info["symbol"] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

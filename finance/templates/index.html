@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block main %}
+
+    <table class="table table-bordered" style="margin-top: 50px; table-layout: fixed; width: 100%;">
+        <thead>
+            <tr class="table-primary">
+                <th scope="col">Symbol</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in stocks %}
+                <tr>
+                    <td>{{ row['stock_symbol']}}</td>
+                    <td>{{ row['total_amount'] }}</td>
+                    <td>{{ row['price']  | usd}}</td>
+                    <td style="background-color: lightgrey;">{{ row['total'] | usd}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr class="border-0">
+                <td class="border-0" colspan="2"></td>
+                <td class="border table-primary fw-bold">Cash</td>
+                <td class="border" style="background-color: lightgrey;">{{ cash | usd}}</td>
+            </tr>
+            <tr class="border-0">
+                <td class="border-0" colspan="2"></td>
+                <td class="border table-primary fw-bold">Total</td>
+                <td class="border fw-bold" style="background-color: lightgrey;">{{ total | usd}}</td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
